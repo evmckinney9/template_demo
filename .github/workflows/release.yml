@@ -80,23 +80,24 @@ jobs:
       - name: Generate Changelog
         run: |
           npm install -g conventional-changelog-cli
-          conventional-changelog -p angular -i CHANGELOG.md -s
+          conventional-changelog -p angular -r 1 > temp_changelog.md
+          echo "$(cat temp_changelog.md CHANGELOG.md)" > CHANGELOG.md
 
       - name: Commit changes and push back to GitHub
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "docs(changelog): update CHANGELOG.md for release"
           file_pattern: CHANGELOG.md
-          branch: main # specify explcitly, because this action is triggered by a tag push
+          branch: main
 
       - uses: actions/download-artifact@v4
         with:
-          name: cibw-wheels-ubuntu-latest-0
           path: ./wheelhouse
+
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: ./wheelhouse/*.whl
-          body_path: CHANGELOG.md
+          body_path: temp_changelog.md
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
