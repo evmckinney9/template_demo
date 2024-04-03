@@ -84,6 +84,7 @@ jobs:
         with:
           commit_message: "docs(changelog): update CHANGELOG.md for release"
           file_pattern: CHANGELOG.md
+          branch: main # specify explcitly, because this action is triggered by a tag push
 
       - uses: actions/download-artifact@v4
         with:
