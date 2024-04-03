@@ -8,6 +8,7 @@ use pyo3::prelude::*;
 pub fn basic_functions(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_wrapped(wrap_pyfunction!(basic_math::add_in_rust))?;
     m.add_wrapped(wrap_pyfunction!(basic_math::subtract_in_rust))?;
+    m.add_wrapped(wrap_pyfunction!(basic_math::multiply_in_rust))?;
     m.add_wrapped(wrap_pyfunction!(basic_strings::concat_in_rust))?;
     Ok(())
 }
