@@ -23,7 +23,7 @@ class Electron:
     @property
     def mass(self) -> float:
         """The mass of the electron."""
-        return 4.2
+        return 2.1
 
     def compute_momentum(self, velocity: float) -> float:
         """Compute the electron's velocity.
