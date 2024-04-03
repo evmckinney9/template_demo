@@ -80,7 +80,7 @@ jobs:
       - name: Generate Changelog
         run: |
           npm install -g conventional-changelog-cli
-          conventional-changelog -p conventionalcommits > temp_changelog.md
+          conventional-changelog -p conventionalcommits -r 2 | tail -n +3 > CHANGELOG.tmp
 
       - uses: actions/download-artifact@v4
         with:
@@ -90,6 +90,6 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: ./wheelhouse/**/*.whl
-          body_path: temp_changelog.md
+          body_path: CHANGELOG.tmp
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
